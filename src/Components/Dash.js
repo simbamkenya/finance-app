@@ -1,7 +1,23 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
 import Chart from './Chart'
+import socketIOClient from "socket.io-client";
 
-function Dash({data}) {
+function Dash({data}) {   
+const ENDPOINT = "wss://stream.binance.com:9443/ws/btcusdt@trade";
+const END= "http://127.0.0.1:3001";
+// const socket = io("wss://stream.binance.com:9443/ws/btcusdt@trade");
+
+const [response, setResponse] = useState("");
+
+useEffect(() => {
+    const socket = socketIOClient(END);
+    socket.on("message", data => {
+    //   setResponse(data);
+    console.log(data)
+
+    });
+  }, []);
+
   return (
     <div className='min-h-screen bg-[#181818]'>
         <div className='bg-[#060606]  text-white'>
@@ -31,8 +47,13 @@ function Dash({data}) {
            </div>
 
            <div className='container mx-auto'>
-            <div className='mb-6 bg-gray-800 border-8'>
-                <Chart data={data}/>
+            <div className='mb-6 bg-gray-800 flex'>
+               <div className="w-1/4 bg-red-300 rounded mr-2">
+                <span>SIDEBAR</span>
+               </div>
+               <div className="w-3/4 rounded bg-gray-500">
+                  <Chart data={data}/> 
+               </div>
             </div>
         </div>
 
