@@ -5,6 +5,19 @@ import { range, now, timeFormat } from 'd3'
 import Dash from './Components/Dash';
 
 function App() {
+
+  const intialvalue = {
+    "open": 55887.335938,
+    "close": 56099.519531,
+    "high": 57505.226563,
+    "low": 54626.558594,
+    "volume": 68145460026,
+    "date": "2021-02-20",
+    "adjvol": 56099.519531
+}
+  const [candle, setCandle] = useState(intialvalue)
+
+
     const chart_width = 500;
     const chart_height = 300;
 
@@ -54,7 +67,7 @@ function App() {
       setData(generateData);
     };
   return (
-   <Dash data={data} />
+   <Dash data={data} candle={candle} setCandle={setCandle}/>
   );
 }
 

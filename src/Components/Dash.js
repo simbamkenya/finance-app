@@ -1,11 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Chart from './Chart'
 import socketIOClient from "socket.io-client";
+import { select} from 'd3'
+import Candle from "./Candle";
+import { StockContext } from "../StockContext";
 
-function Dash({data}) {   
+
+function Dash({data, setCandle, candle}) {   
+  const dataa = useContext(StockContext)
+  console.log('dataa',dataa[0])
 const ENDPOINT = "wss://stream.binance.com:9443/ws/btcusdt@trade";
 const END= "http://127.0.0.1:3001";
-// const socket = io("wss://stream.binance.com:9443/ws/btcusdt@trade");
+// const sock = socketIOClient("wss://stream.binance.com:9443/ws/btcusdt@trade");
+
 
 const [response, setResponse] = useState("");
 
@@ -16,7 +23,14 @@ useEffect(() => {
     console.log(data)
 
     });
+   console.log(socket)
+   socket.on('open', () => {
+      console.log('l')
+   })
+
   }, []);
+
+  
 
   return (
     <div className='min-h-screen bg-[#181818]'>
@@ -48,11 +62,116 @@ useEffect(() => {
 
            <div className='container mx-auto'>
             <div className='mb-6 bg-gray-800 flex'>
-               <div className="w-1/4 bg-red-300 rounded mr-2">
-                <span>SIDEBAR</span>
+               <div className="w-1/3 bg-gray-700 rounded mr-2">
+                 <table className="table-auto">
+                    <thead>
+                      <tr className="bg-gray-800 hover:bg-gray-600 text-sm">
+                        <th scope="col" className="px-6 py-3">Low</th>
+                        <th scope="col" className="px-6 py-3">High</th>
+                        <th scope="col" className="px-6 py-3">Open</th>
+                        <th scope="col" className="px-6 py-3">Close</th>
+                        <th scope="col" className="px-6 py-3">Volume</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b bg-gray-800 hover:bg-gray-600 text-xs">
+                        <td className="px-2 py-2">57505.22</td>
+                        <td className="px-2 py-2">54626.55</td>
+                        <td className="px-2 py-2">55887.33</td>
+                        <td className="px-2 py-2">56099.51</td>
+                        <td className="px-2 py-2">68145460026</td>
+                      </tr>
+                      <tr className="border-b bg-gray-800 hover:bg-gray-600 text-xs">
+                        <td className="px-2 py-2">57505.22</td>
+                        <td className="px-2 py-2">54626.55</td>
+                        <td className="px-2 py-2">55887.33</td>
+                        <td className="px-2 py-2">56099.51</td>
+                        <td className="px-2 py-2">68145460026</td>
+                      </tr>
+                      <tr className="border-b bg-gray-800 hover:bg-gray-600 text-xs">
+                        <td className="px-2 py-2">57505.22</td>
+                        <td className="px-2 py-2">54626.55</td>
+                        <td className="px-2 py-2">55887.33</td>
+                        <td className="px-2 py-2">56099.51</td>
+                        <td className="px-2 py-2">68145460026</td>
+                      </tr>
+                      <tr className="border-b bg-gray-800 hover:bg-gray-600 text-xs">
+                        <td className="px-2 py-2">57505.22</td>
+                        <td className="px-2 py-2">54626.55</td>
+                        <td className="px-2 py-2">55887.33</td>
+                        <td className="px-2 py-2">56099.51</td>
+                        <td className="px-2 py-2">68145460026</td>
+                      </tr>
+                      <tr className="border-b bg-gray-800 hover:bg-gray-600 text-xs">
+                        <td className="px-2 py-2">57505.22</td>
+                        <td className="px-2 py-2">54626.55</td>
+                        <td className="px-2 py-2">55887.33</td>
+                        <td className="px-2 py-2">56099.51</td>
+                        <td className="px-2 py-2">68145460026</td>
+                      </tr>
+                      <tr className="border-b bg-gray-800 hover:bg-gray-600 text-xs">
+                        <td className="px-2 py-2">57505.22</td>
+                        <td className="px-2 py-2">54626.55</td>
+                        <td className="px-2 py-2">55887.33</td>
+                        <td className="px-2 py-2">56099.51</td>
+                        <td className="px-2 py-2">68145460026</td>
+                      </tr>
+                      <tr className="border-b bg-gray-800 hover:bg-gray-600 text-xs">
+                        <td className="px-2 py-2">57505.22</td>
+                        <td className="px-2 py-2">54626.55</td>
+                        <td className="px-2 py-2">55887.33</td>
+                        <td className="px-2 py-2">56099.51</td>
+                        <td className="px-2 py-2">68145460026</td>
+                      </tr>
+                      <tr className="border-b bg-gray-800 hover:bg-gray-600 text-xs">
+                        <td className="px-2 py-2">57505.22</td>
+                        <td className="px-2 py-2">54626.55</td>
+                        <td className="px-2 py-2">55887.33</td>
+                        <td className="px-2 py-2">56099.51</td>
+                        <td className="px-2 py-2">68145460026</td>
+                      </tr>
+                      <tr className="border-b bg-gray-800 hover:bg-gray-600 text-xs">
+                        <td className="px-2 py-2">57505.22</td>
+                        <td className="px-2 py-2">54626.55</td>
+                        <td className="px-2 py-2">55887.33</td>
+                        <td className="px-2 py-2">56099.51</td>
+                        <td className="px-2 py-2">68145460026</td>
+                      </tr>
+                      <tr className="border-b bg-gray-800 hover:bg-gray-600 text-xs">
+                        <td className="px-2 py-2">57505.22</td>
+                        <td className="px-2 py-2">54626.55</td>
+                        <td className="px-2 py-2">55887.33</td>
+                        <td className="px-2 py-2">56099.51</td>
+                        <td className="px-2 py-2">68145460026</td>
+                      </tr>
+                      <tr className="border-b bg-gray-800 hover:bg-gray-600 text-xs">
+                        <td className="px-2 py-2">57505.22</td>
+                        <td className="px-2 py-2">54626.55</td>
+                        <td className="px-2 py-2">55887.33</td>
+                        <td className="px-2 py-2">56099.51</td>
+                        <td className="px-2 py-2">68145460026</td>
+                      </tr>
+                      <tr className="border-b bg-gray-800 hover:bg-gray-600 text-xs">
+                        <td className="px-2 py-2">57505.22</td>
+                        <td className="px-2 py-2">54626.55</td>
+                        <td className="px-2 py-2">55887.33</td>
+                        <td className="px-2 py-2">56099.51</td>
+                        <td className="px-2 py-2">68145460026</td>
+                      </tr>
+                      <tr className="border-b bg-gray-800 hover:bg-gray-600 text-xs">
+                        <td className="px-2 py-2">57505.22</td>
+                        <td className="px-2 py-2">54626.55</td>
+                        <td className="px-2 py-2">55887.33</td>
+                        <td className="px-2 py-2">56099.51</td>
+                        <td className="px-2 py-2">68145460026</td>
+                      </tr>
+                      
+                    </tbody>
+                 </table>
                </div>
-               <div className="w-3/4 rounded bg-gray-500">
-                  <Chart data={data}/> 
+               <div className="w-2/3 rounded bg-gray-500">
+                  {/* <Chart data={data}/>  */}
+                  <Candle  setCandle={setCandle} candle={candle}/>
                </div>
             </div>
         </div>

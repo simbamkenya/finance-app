@@ -9,13 +9,13 @@ function Chart({ data }) {
       console.log(data[7])
       const margin = { top: 20, right: 30, bottom: 40, left: 30 },
           width = 960 - margin.left - margin.right,
-          height = 540 - margin.top - margin.bottom;
+          height = 840 - margin.top - margin.bottom;
           
           
-      const svg = select(contRef.current).append('svg')
-          // .attr('viewBox', `0 0 ${width} ${height}`)
-          .attr('width', width + margin.left + margin.right)
-          .attr('height', height + margin.top + margin.bottom)
+      const svg = select(contRef.current)
+          .attr('viewBox', `0 0 ${width} ${height}`)
+          // .attr('width', width + margin.left + margin.right)
+          // .attr('height', height + margin.top + margin.bottom)
         .append('g')
           .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
@@ -52,7 +52,8 @@ function Chart({ data }) {
         .attr('x', d => x(d.time))
             .attr("y", d=>  y(max([d.open, d.close])))
            .attr("height", d =>  y(min([d.open, d.close]))-y(max([d.open, d.close])))
-           .attr("width", d=>  0.5 * (width - 2*margin.left)/data.length)
+          //  .attr("width", d=>  0.5 * (width - 2*margin.left)/data.length)
+
                .attr("fill", d=>  d.open > d.close ? "red" : "green");
 
       const focus = svg
@@ -84,6 +85,7 @@ function Chart({ data }) {
       .attr('class', 'overlay')
       .attr('height', height)
       .attr('width', width)
+      .attr('fill', 'none')
       .on('mouseover', () => focus.style('display', null))
       .on('mouseout', () => focus.style('display', 'none'))
       .on('mousemove', (e) => {    
@@ -101,14 +103,14 @@ function Chart({ data }) {
           
       })
       select('.overlay').style('fill', 'none');
-          select('.overlay').style('pointer-events', 'all');
+      select('.overlay').style('pointer-events', 'all');
       
 
     }, [])
     
 
   return (
-    <div ref={contRef}></div>
+    <svg ref={contRef}></svg>
   )
 }
 
